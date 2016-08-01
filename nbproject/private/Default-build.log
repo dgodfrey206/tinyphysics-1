@@ -1,0 +1,4 @@
+Scanning dependencies of target main
+[100%] Building CXX object CMakeFiles/main.dir/src/cpp/main.cpp.o
+Linking CXX executable bin/main
+[100%] Built target main
