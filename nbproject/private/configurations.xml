@@ -20,9 +20,35 @@
               </df>
             </df>
           </df>
+          <df name="Progress">
+          </df>
+          <df name="tinyphysics-geometry.dir">
+            <df name="src">
+              <df name="cpp">
+                <df name="tinyphysics">
+                  <df name="geometry">
+                  </df>
+                </df>
+              </df>
+            </df>
+          </df>
+          <df name="tinyphysics-sfml.dir">
+            <df name="src">
+              <df name="cpp">
+                <df name="tinyphysics">
+                  <df name="geometry">
+                  </df>
+                  <df name="sfml">
+                  </df>
+                </df>
+              </df>
+            </df>
+          </df>
         </df>
         <df name="tests">
           <df name="CMakeFiles">
+            <df name="build_tests.dir">
+            </df>
             <df name="test.dir">
             </df>
             <df name="unittest.dir">
@@ -36,6 +62,31 @@
       </df>
       <df name="src">
         <df name="cpp">
+          <df name="tinyphysics">
+            <df name="geometry">
+              <in>algorithms.h</in>
+              <in>constants.h</in>
+              <in>coord2d.cpp</in>
+              <in>coord2d.h</in>
+              <in>line2d.cpp</in>
+              <in>line2d.h</in>
+              <in>point2d.cpp</in>
+              <in>point2d.h</in>
+              <in>polygon2d.cpp</in>
+              <in>polygon2d.h</in>
+              <in>rectangle2d.cpp</in>
+              <in>rectangle2d.h</in>
+              <in>shape2d.h</in>
+              <in>vector2d.cpp</in>
+              <in>vector2d.h</in>
+            </df>
+            <df name="sfml">
+              <in>demos.cpp</in>
+              <in>demos.h</in>
+              <in>mainloop.cpp</in>
+              <in>mainloop.h</in>
+            </df>
+          </df>
           <in>main.cpp</in>
         </df>
       </df>
@@ -45,9 +96,13 @@
             <in>catch.hpp</in>
           </df>
           <in>test.cpp</in>
-          <in>test_point.cpp</in>
+          <in>test_algorithms.cpp</in>
+          <in>test_line2d.cpp</in>
+          <in>test_point2d.cpp</in>
+          <in>test_polygon2d.cpp</in>
+          <in>test_rectangle2d.cpp</in>
+          <in>test_vector2d.cpp</in>
         </df>
-        <in>CMakeLists.txt</in>
       </df>
     </df>
   </logicalFolder>
@@ -91,7 +146,7 @@
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}"</runcommand>
         <rundir>.</rundir>
-        <buildfirst>false</buildfirst>
+        <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
         <environment>
@@ -121,6 +176,8 @@
         <gdb_interceptlist>
           <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
         </gdb_interceptlist>
+        <gdb_signals>
+        </gdb_signals>
         <gdb_options>
           <DebugOptions>
           </DebugOptions>
@@ -132,12 +189,12 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>make unittest</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>make unittest</runcommand>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
         <rundir>./build</rundir>
-        <buildfirst>false</buildfirst>
+        <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
         <environment>

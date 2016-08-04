@@ -1,4 +1,11 @@
+//STL headers
 #include <iostream>
+
+//Tinyphysics
+#include "tinyphysics/sfml/demos.h"
+#include "tinyphysics/geometry/rectangle2d.h"
+
+using namespace tinyphysics;
 
 /**
  * @brief Main function
@@ -10,5 +17,7 @@
 int main(int argc, char* argv[])
 {
     std::cout << "TINY PHYSICS Engine" << std::endl;
+    Demo1 app;
+    app.run();
     return 0;
 }

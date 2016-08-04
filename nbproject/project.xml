@@ -6,7 +6,7 @@
             <name>tinyphysics</name>
             <c-extensions>c</c-extensions>
             <cpp-extensions>cpp</cpp-extensions>
-            <header-extensions>hpp</header-extensions>
+            <header-extensions>h,hpp</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
@@ -27,7 +27,10 @@
                 </confElem>
             </confList>
             <formatting>
-                <project-formatting-style>false</project-formatting-style>
+                <project-formatting-style>true</project-formatting-style>
+                <c-style>ANSI|ANSI</c-style>
+                <cpp-style>Default|NetBeans</cpp-style>
+                <header-style>Default|NetBeans</header-style>
             </formatting>
         </data>
     </configuration>
