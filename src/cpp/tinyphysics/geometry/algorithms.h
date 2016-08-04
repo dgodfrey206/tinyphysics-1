@@ -25,6 +25,7 @@
 
 //STL headers
 #include <cmath>
+#include <vector>
 
 //Tinyphysics
 #include "constants.h"
@@ -283,6 +284,115 @@ inline double angleBetween(const Line2D& line1, const Line2D& line2)
 {
     return angleBetween(line1.getDirectionVector(), line2.getDirectionVector());
 }
+
+//==============================================================================
+// INTERSECTION
+//==============================================================================
+
+class Intersection2D
+{
+public:
+    
+    enum Method { OnlyFirstIntersection, AllIntersections };
+    
+    /**
+     * @brief Constructor.
+     */
+    Intersection2D();
+    
+    /**
+     * @brief Constructor.
+     * 
+     * A method may be specified. By default only first intersection is looked 
+     * for.
+     */
+    Intersection2D(Intersection2D::Method method);
+    
+    /**
+     * @brief Destructor.
+     */
+    ~Intersection2D();
+    
+    /**
+     * @brief Set tolerance.
+     * 
+     * @param tolerance tolerance value
+     */
+    void setTolerance(double tolerance);
+    
+    /**
+     * @brief Get tolerance.
+     */
+    double getTolerance() const;
+    
+    /**
+     * @brief Set method for intersection check.
+     * 
+     * @param method
+     */
+    void setMethod(Intersection2D::Method method);
+    
+    /**
+     * @brief Return the current method for intersection check.
+     */
+    Intersection2D::Method getMethod() const;
+    
+    /**
+     * @brief Return the number of intersections found.
+     */
+    size_t countIntersections() const;
+    
+    /**
+     * @brief Get n'th intersection point.
+     * 
+     * @param index number of intersection point
+     */
+    Point2D getIntersectionPoint(size_t index) const;
+    
+    /**
+     * @brief Check whether two 2D entities intersect.
+     */
+    bool intersect(const Line2D& line1, const Line2D& line2);
+    
+private:
+    
+    //Disabled operators
+    Intersection2D(const Intersection2D& other);
+    Intersection2D(Intersection2D&& other);
+    Intersection2D& operator=(const Intersection2D& other);
+    Intersection2D& operator=(Intersection2D&& other);
+    
+    /**
+     * @brief Reset results
+     */
+    void reset();
+    
+    /**
+     * @brief Calculate s and t parameters at intersection.
+     * 
+     * If no intersection is found (because entity are parallel), s and t are 
+     * set to NAN.
+     * 
+     * @param vect1 direction vector of first entity
+     * @param vect2 direction vector of second entity
+     * @param point1 first point of first entity
+     * @param point2 second point of second entity
+     * @param s parameter value for first entity at intersection
+     * @param t parameter value for second entity at intersection
+     */
+    void calculateParametersAtIntersection(
+            const Vector2D& vect1,
+            const Vector2D& vect2,
+            const Point2D& point1,
+            const Point2D& point2,
+            double& s,
+            double& t) const;
+    
+    //Attributes
+    Intersection2D::Method mMethod;
+    double mTolerance;
+    std::vector<Point2D> mPoints;
+};
 
 }
 

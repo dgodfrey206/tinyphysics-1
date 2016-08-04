@@ -64,6 +64,7 @@
         <df name="cpp">
           <df name="tinyphysics">
             <df name="geometry">
+              <in>algorithms.cpp</in>
               <in>algorithms.h</in>
               <in>constants.h</in>
               <in>coord2d.cpp</in>

@@ -110,30 +110,6 @@ public:
     {
         return mB;
     }    
-        
-    /**
-     * @brief Check intersection with another line.
-     * 
-     * If no intersection is found, point is left unchanged.
-     * 
-     * @param other line object to check intersection with
-     * @param point intersection point
-     */
-    virtual bool intersectsLine(const Line2D& other, Point2D& point) const;
-
-protected:
-    
-    /**
-     * @brief Calculate parameters values at intersection with another line
-     * 
-     * If both lines are parallel, s and t are returned as negative values.
-     * 
-     * @param other line object to check intersection with
-     * @param s parameter for current line
-     * @param t parameter for other line
-     */
-    void calculateParametersAtIntersection(const Line2D& other, 
-            double& s, double& t) const;
 
 private:
     

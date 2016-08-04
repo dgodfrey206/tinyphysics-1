@@ -6,6 +6,7 @@
         <df name="cpp">
           <df name="tinyphysics">
             <df name="geometry">
+              <in>algorithms.cpp</in>
               <in>algorithms.h</in>
               <in>constants.h</in>
               <in>coord2d.cpp</in>
@@ -123,6 +124,11 @@
       <item path="src/cpp/main.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="1">
         </ccTool>
+      </item>
+      <item path="src/cpp/tinyphysics/geometry/algorithms.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="src/cpp/tinyphysics/geometry/coord2d.cpp"
             ex="false"
@@ -298,6 +304,7 @@
       <item path="src/cpp/main.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
           <incDir>
+            <pElem>build</pElem>
             <pElem>src/cpp/tinyphysics/sfml</pElem>
             <pElem>src/cpp</pElem>
             <pElem>src/cpp/tinyphysics/geometry</pElem>
@@ -316,22 +323,26 @@
           </preprocessorList>
         </ccTool>
       </item>
+      <item path="src/cpp/tinyphysics/geometry/algorithms.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+          <incDir>
+            <pElem>src/cpp</pElem>
+            <pElem>build</pElem>
+          </incDir>
+        </ccTool>
+      </item>
       <item path="src/cpp/tinyphysics/geometry/coord2d.cpp"
             ex="false"
             tool="1"
             flavor2="8">
-        <ccTool flags="0">
+        <ccTool flags="1">
           <incDir>
-            <pElem>src/cpp/tinyphysics/geometry</pElem>
+            <pElem>build</pElem>
+            <pElem>src/cpp</pElem>
           </incDir>
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/line2d.cpp"
@@ -341,6 +352,7 @@
         <ccTool flags="1">
           <incDir>
             <pElem>src/cpp</pElem>
+            <pElem>build</pElem>
           </incDir>
         </ccTool>
       </item>
@@ -348,36 +360,22 @@
             ex="false"
             tool="1"
             flavor2="8">
-        <ccTool flags="0">
+        <ccTool flags="1">
           <incDir>
-            <pElem>src/cpp/tinyphysics/geometry</pElem>
+            <pElem>build</pElem>
+            <pElem>src/cpp</pElem>
           </incDir>
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/polygon2d.cpp"
             ex="false"
             tool="1"
             flavor2="8">
-        <ccTool flags="0">
+        <ccTool flags="1">
           <incDir>
-            <pElem>src/cpp/tinyphysics/geometry</pElem>
+            <pElem>build</pElem>
+            <pElem>src/cpp</pElem>
           </incDir>
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/rectangle2d.cpp"
@@ -387,6 +385,7 @@
         <ccTool flags="1">
           <incDir>
             <pElem>src/cpp</pElem>
+            <pElem>build</pElem>
           </incDir>
         </ccTool>
       </item>
@@ -394,18 +393,11 @@
             ex="false"
             tool="1"
             flavor2="8">
-        <ccTool flags="0">
+        <ccTool flags="1">
           <incDir>
-            <pElem>src/cpp/tinyphysics/geometry</pElem>
+            <pElem>build</pElem>
+            <pElem>src/cpp</pElem>
           </incDir>
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/sfml/demos.cpp" ex="false" tool="1" flavor2="8">
@@ -436,10 +428,7 @@
         </ccTool>
       </item>
       <item path="tests/unitary/test.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-          <incDir>
-            <pElem>tests/unitary</pElem>
-          </incDir>
+        <ccTool flags="1">
           <preprocessorList>
             <Elem>__GNUC_STDC_INLINE__=1</Elem>
             <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
@@ -452,14 +441,6 @@
       </item>
       <item path="tests/unitary/test_algorithms.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="1">
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="tests/unitary/test_line2d.cpp" ex="false" tool="1" flavor2="8">
@@ -468,50 +449,18 @@
       </item>
       <item path="tests/unitary/test_point2d.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="1">
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="tests/unitary/test_polygon2d.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="1">
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="tests/unitary/test_rectangle2d.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="1">
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="tests/unitary/test_vector2d.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="1">
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
     </conf>
@@ -560,6 +509,11 @@
       <item path="src/cpp/main.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
+      </item>
+      <item path="src/cpp/tinyphysics/geometry/algorithms.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="src/cpp/tinyphysics/geometry/algorithms.h"
             ex="false"

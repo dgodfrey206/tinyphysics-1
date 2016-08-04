@@ -56,23 +56,25 @@ TEST_CASE("Line2D", "[geometry]")
         REQUIRE(areCoincident(line.getSecondPoint(), Point2D(2., 1.)));
     }
     
-    SECTION("intersectsLine")
+    SECTION("intersection")
     {
         Point2D point;
+        Intersection2D algo;
         //Coincident lines
         Line2D line1(Point2D(0.5, 0.5), Point2D(1., 1.));
         Line2D line2(Point2D(0., 0.), Point2D(2., 2.));
-        REQUIRE(line1.intersectsLine(line2, point));
-        REQUIRE(almostEquals(point.getX(), 0.5));
-        REQUIRE(almostEquals(point.getY(), 0.5));
+        REQUIRE(algo.intersect(line1, line2));
+        REQUIRE(almostEquals(algo.getIntersectionPoint(0).getX(), 0.5));
+        REQUIRE(almostEquals(algo.getIntersectionPoint(0).getY(), 0.5));
+        REQUIRE(algo.countIntersections() == 4);
         //Parallel lines
         Line2D line3(Point2D(1., 0.), Point2D(2., 1.));
-        REQUIRE(!line1.intersectsLine(line3, point));
+        REQUIRE(!algo.intersect(line1, line3));
         //Crossing lines
         Line2D line4(Point2D(0., 2.), Point2D(2., 0.));
-        REQUIRE(line2.intersectsLine(line4, point));
-        REQUIRE(almostEquals(point.getX(), 1.));
-        REQUIRE(almostEquals(point.getY(), 1.));        
+        REQUIRE(algo.intersect(line2, line4));
+        REQUIRE(almostEquals(algo.getIntersectionPoint(0).getX(), 1.));
+        REQUIRE(almostEquals(algo.getIntersectionPoint(0).getY(), 1.));
     }
     
     SECTION("arePerpendicular")
