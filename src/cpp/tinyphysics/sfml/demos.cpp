@@ -109,6 +109,7 @@ void Demo1::draw()
         for (const Rectangle2D& rect : mRectangles)
         {
             bool status = algo.intersect(mCurrentRectangle, rect);
+            //TODO fix: too many intersections found
             if (status)
             {
                 for (size_t i = 0; i < algo.countIntersections(); ++i)
@@ -157,6 +158,7 @@ void Demo1::draw()
                         circle.setOutlineColor(sf::Color::Green);
                         circle.setOutlineThickness(1.);
                         sf::Color color(0, 255, 0, 50.);
+                        //TODO fix alpha channel...
                         circle.setFillColor(color);
                         circle.setPosition(point.getX() - 8., point.getY() - 8.);
                         mWindow.draw(circle);
