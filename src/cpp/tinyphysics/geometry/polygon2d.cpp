@@ -36,9 +36,17 @@ size_t Polygon2D::countPoints() const
     return mPoints.size();
 }
 
-bool Polygon2D::contains(const Point2D& point) const
+size_t Polygon2D::countSegments() const
 {
-    return false;
+    return mPoints.size();
+}
+
+Segment2D Polygon2D::getSegment(size_t index) const
+{
+    if (index < mPoints.size() - 1)
+        return Segment2D(getPoint(index), getPoint(index + 1));
+    else
+        return Segment2D(mPoints.back(), getPoint(0));
 }
 
 }

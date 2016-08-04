@@ -50,11 +50,6 @@ public:
      */
     virtual double getArea() const = 0;
     
-    /**
-     * @brief Stat whether if point is inside the shape.
-     */
-    virtual bool contains(const Point2D& point) const = 0;
-    
     //void setRotationPoint(const Point2D& point);
     //void rotate(double angle);
     //void translate(const Vector2D& vect);

@@ -20,8 +20,7 @@ Shape2D* Rectangle2D::clone() const
 
 double Rectangle2D::getArea() const
 {
-    return distance(getPoint(0), getPoint(1)) * 
-            distance(getPoint(1), getPoint(2));
+    return getSegment(0).getLength() * getSegment(1).getLength();
 }
 
 double Rectangle2D::getWidth() const
@@ -32,33 +31,6 @@ double Rectangle2D::getWidth() const
 double Rectangle2D::getHeight() const
 {
     return distance(getPoint(1), getPoint(2));
-}
-
-Point2D Rectangle2D::getPosition() const
-{
-//    double minY = 100000.;
-//    Point2D point;
-//    double y1 = mBottomLeftPoint.getY();
-//    double y2 = mBottomRightPoint.getY();
-//    double y3 = mTopRightPoint.getY();
-//    if (y1 <= minY)
-//    {
-//        minY = y1;
-//        point = mBottomLeftPoint;
-//    }
-//    if (y2 <= minY)
-//    {
-//        minY = y2;
-//        point = mBottomRightPoint;
-//    }
-//    if (y3 <= minY)
-//    {
-//        minY = y3;
-//        point = mTopRightPoint;
-//    }
-//    //return point;
-//    return mBottomLeftPoint;
-    return getPoint(0);
 }
     
 }

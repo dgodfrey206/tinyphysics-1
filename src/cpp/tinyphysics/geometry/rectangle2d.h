@@ -58,21 +58,14 @@ public:
     
     /**
      * @brief Return rectangle width (along X axis).
-     * TODO test
      */
     double getWidth() const;
     
     /**
      * @brief Return rectangle height (along Y axis).
-     * TODO test
      */
     double getHeight() const;
-    
-    /**
-     * @brief Return bottom left point.
-     * TODO test
-     */
-    Point2D getPosition() const;
+
 };
 
 }

@@ -75,8 +75,11 @@
               <in>point2d.h</in>
               <in>polygon2d.cpp</in>
               <in>polygon2d.h</in>
+              <in>ray2d.h</in>
               <in>rectangle2d.cpp</in>
               <in>rectangle2d.h</in>
+              <in>segment2d.cpp</in>
+              <in>segment2d.h</in>
               <in>shape2d.h</in>
               <in>vector2d.cpp</in>
               <in>vector2d.h</in>
@@ -101,7 +104,9 @@
           <in>test_line2d.cpp</in>
           <in>test_point2d.cpp</in>
           <in>test_polygon2d.cpp</in>
+          <in>test_ray2d.cpp</in>
           <in>test_rectangle2d.cpp</in>
+          <in>test_segment2d.cpp</in>
           <in>test_vector2d.cpp</in>
         </df>
       </df>

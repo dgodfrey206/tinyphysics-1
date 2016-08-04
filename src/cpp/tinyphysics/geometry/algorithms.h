@@ -32,6 +32,9 @@
 #include "point2d.h"
 #include "vector2d.h"
 #include "line2d.h"
+#include "segment2d.h"
+#include "ray2d.h"
+#include "polygon2d.h"
 
 namespace tinyphysics
 {
@@ -99,6 +102,10 @@ inline double distance(const Point2D& point1, const Point2D& point2)
     return std::sqrt(result);
 }
 
+//TODO distance point - line
+//TODO distance point - segment
+//TODO distance point - ray
+
 //==============================================================================
 // COLINEARITY and PARALLELISM
 //==============================================================================
@@ -147,6 +154,25 @@ inline bool areParallel(const Line2D& line1,
     return areColinear(line1.getDirectionVector(), line2.getDirectionVector(),
             tolerance);
 }
+
+///**
+// * @brief Stat whether segment and ray are parallel.
+// * 
+// * @param segment segment
+// * @param ray ray
+// * @param tolerance tolerance for perp product equality
+// */
+//inline bool areParallel(const Segment2D& segment,
+//                        const Ray2D& ray,
+//                        double tolerance=1.e-8)
+//{
+//    return areColinear(line1.getDirectionVector(), line2.getDirectionVector(),
+//            tolerance);
+//}
+
+//TODO line // segment
+//TODO line // ray
+//TODO ray // segment
 
 //==============================================================================
 // COINCIDENCE
@@ -206,20 +232,103 @@ inline bool areCoincident(const Line2D& line,
 }
 
 /**
- * @brief Stat whether a 2D point belongs to a 2D line.
+ * @brief Stat whether a 2D point belongs to a 2D segment.
  * 
- * @param line line
+ * @param segment segment
  * @param point point
  * @param tolerance tolerance
  */
-inline bool areCoincident(const Point2D&point,
-                          const Line2D& line, 
+inline bool areCoincident(const Segment2D& segment,
+                          const Point2D& point,
                           double tolerance=1.e-8)
 {
-    return areColinear(line.getDirectionVector(), 
-            Vector2D(line.getFirstPoint(), point), tolerance);
+    Point2D p0 = segment.getFirstPoint();
+    Point2D p1 = segment.getSecondPoint();
+    if (!areColinear(segment.getDirectionVector(), 
+            Vector2D(p0, point)))
+        return false;
+    double s = (point.getX() - p0.getX()) / (p1.getX() - p0.getY());
+    if ((s <= 1.) && (s >= 0.))
+        return true;
+    return false;
 }
 
+/**
+ * @brief Stat whether a 2D point belongs to a 2D ray.
+ * 
+ * @param ray ray
+ * @param point point
+ * @param tolerance tolerance
+ */
+inline bool areCoincident(const Ray2D& ray,
+                          const Point2D& point,
+                          double tolerance=1.e-8)
+{
+    Point2D p0 = ray.getFirstPoint();
+    Point2D p1 = ray.getSecondPoint();
+    if (!areColinear(ray.getDirectionVector(), 
+            Vector2D(p0, point)))
+        return false;
+    double s = (point.getX() - p0.getX()) / (p1.getX() - p0.getY());
+    if (s >= 0.)
+        return true;
+    return false;
+}
+
+/**
+ * @brief Stat whether a 2D segment belongs to a 2D ray.
+ * 
+ * @param ray ray
+ * @param segment segment
+ * @param tolerance tolerance
+ */
+inline bool areCoincident(const Ray2D& ray,
+                          const Segment2D& segment,
+                          double tolerance=1.e-8)
+{
+    if (!areColinear(ray.getDirectionVector(), segment.getDirectionVector()))
+        return false;
+    return (areCoincident(ray, segment.getFirstPoint()) &&
+            areCoincident(ray, segment.getSecondPoint()));
+}
+
+/**
+ * @brief Stat whether a 2D segment belongs to a 2D segment.
+ * 
+ * Returns true if both points of segment2 are coincident to segment1.
+ * 
+ * @param segment1 first segment
+ * @param segment2 second segment
+ * @param tolerance tolerance
+ */
+inline bool areCoincident(const Segment2D& segment1,
+                          const Segment2D& segment2,
+                          double tolerance=1.e-8)
+{
+    return (areCoincident(segment1, segment2.getFirstPoint()) &&
+            areCoincident(segment1, segment2.getSecondPoint()));
+}
+
+/**
+ * @brief Stat whether a 2D ray belongs to a 2D ray.
+ * 
+ * Returns true if both points of ray2 are coincident to ray1.
+ * 
+ * @param ray1 first ray
+ * @param ray2 second ray
+ * @param tolerance tolerance
+ */
+inline bool areCoincident(const Ray2D& ray1,
+                          const Ray2D& ray2,
+                          double tolerance=1.e-8)
+{
+    return (areCoincident(ray1, ray2.getFirstPoint()) &&
+            areCoincident(ray1, ray2.getSecondPoint()));
+}
+
+//TODO line segment
+//TODO polygon point
+//TODO polygon segment
 
 //==============================================================================
 // PERPENDICULARTY
@@ -251,6 +360,10 @@ inline bool arePerpendicular(const Line2D& line1,
     return almostEquals(dotProduct(line1.getDirectionVector(), 
             line2.getDirectionVector()), tolerance);
 }
+
+//TODO line segment
+//TODO line ray
+//TODO segment ray
 
 //==============================================================================
 // ANGLES
@@ -284,6 +397,10 @@ inline double angleBetween(const Line2D& line1, const Line2D& line2)
 {
     return angleBetween(line1.getDirectionVector(), line2.getDirectionVector());
 }
+
+//TODO line segment
+//TODO line ray
+//TODO segment ray
 
 //==============================================================================
 // INTERSECTION
@@ -351,8 +468,59 @@ public:
     
     /**
      * @brief Check whether two 2D entities intersect.
+     * 
+     * @param line1 first line
+     * @param line2 second line
+     * @param reset toggle reset of already found intersections
      */
-    bool intersect(const Line2D& line1, const Line2D& line2);
+    bool intersect(const Line2D& line1, const Line2D& line2, bool reset=true);
+    
+    /**
+     * @brief Check whether two 2D entities intersect.
+     * 
+     * @param segment1 first segment
+     * @param segment2 second segment
+     * @param reset toggle reset of already found intersections
+     */
+    bool intersect(const Segment2D& segment1, 
+                   const Segment2D& segment2,
+                   bool reset=true);
+    
+    /**
+     * @brief Check whether two 2D entities intersect.
+     * 
+     * @param poly1 first polygon
+     * @param poly2 second polygon
+     * @param reset toggle reset of already found intersections
+     */
+    bool intersect(const Polygon2D& poly1, 
+                   const Polygon2D& poly2, 
+                   bool reset=true);
+
+    /**
+     * @brief Check wether segment and ray intersect.
+     * 
+     * @param segment segment
+     * @param ray ray
+     * @param reset toggle reset of already found intersections
+     */
+    bool intersect(const Segment2D& segment, const Ray2D& ray, bool reset=true);
+    
+    /**
+     * @brief Check wether segment and ray intersect.
+     * 
+     * @param segment segment
+     * @param ray ray
+     * @param reset toggle reset of already found intersections
+     */
+    bool intersect(const Ray2D& ray, const Segment2D& segment, bool reset=true);
+    
+    //TODO line segment and inversely
+    //TODO line ray and inversely
+    //TODO ray ray 
+    //TODO polygon line and inversely
+    //TODO polygon ray and inversely
+    //TODO polygon segment and inversely
     
 private:
     

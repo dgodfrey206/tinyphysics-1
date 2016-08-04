@@ -29,6 +29,7 @@
 //Tinyphysics
 #include "shape2d.h"
 #include "point2d.h"
+#include "segment2d.h"
 
 
 namespace tinyphysics
@@ -69,6 +70,11 @@ public:
     size_t countPoints() const;
     
     /**
+     * @brief Return the number of segments in polygon.
+     */
+    size_t countSegments() const;
+    
+    /**
      * @brief Set point at given index.
      * 
      * @param index index of point
@@ -84,10 +90,12 @@ public:
     Point2D getPoint(size_t index) const;
     
     /**
-     * @brief Stat whether if point is inside the shape.
+     * @brief Get segment at given index.
+     * 
+     * @param index index of segment
      */
-    bool contains(const Point2D& point) const override;
-    
+    Segment2D getSegment(size_t index) const;
+        
 protected:    
 
     /**

@@ -20,59 +20,35 @@
  * @file
  */
 
-#ifndef TINYPHYSICS_SFML_DEMOS_H
-#define TINYPHYSICS_SFML_DEMOS_H
+#ifndef TINYPHYSICS_GEOMETRY_SEGMENT2D_H
+#define TINYPHYSICS_GEOMETRY_SEGMENT2D_H
 
-//STL headers
-#include <iostream>
-#include <vector>
-
-//Tinyphysics headers
-#include "tinyphysics/sfml/mainloop.h"
-#include "tinyphysics/geometry/rectangle2d.h"
-#include "tinyphysics/geometry/point2d.h"
-#include "tinyphysics/geometry/algorithms.h"
+#include "tinyphysics/geometry/line2d.h"
 
 namespace tinyphysics
 {
 
-class Demo1: public SfmlMainLoop
+class Segment2D: public Line2D
 {
-   
-public:
     
-    enum State { Idle, Clicking, Drawing, DrawingOnGoing };
+public:
     
     /**
      * @brief Constructor.
-     */
-    Demo1();
-
-private:
-    
-    /**
-     * @brief Handle input from user
      * 
-     * @param event event being sent by user
+     * @param point1 first point
+     * @param point2 second point
      */
-    void handleInput(sf::Event& event) override;
+    Segment2D(const Point2D& point1, const Point2D& point2);
     
     /**
-     * @brief Draw rectangles.
+     * @brief Return length of segment.
      */
-    void draw() override;
-    
-private:
-    
-    //Attributes
-    State mState;
-    std::vector<Rectangle2D> mRectangles;
-    Point2D mClickedPoint;
-    Rectangle2D mCurrentRectangle;
- 
+    double getLength() const;
+        
 };
 
-}
+} // namespace tinyphysics
 
-#endif /* TINYPHYSICS_SFML_DEMOS_H */
+#endif /* TINYPHYSICS_GEOMETRY_SEGMENT2D_H */
 

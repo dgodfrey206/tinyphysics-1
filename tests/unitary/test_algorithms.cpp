@@ -78,6 +78,6 @@ TEST_CASE("algorithms", "[geometry]")
         Point2D point2(1., 0.);
         Line2D line(Point2D(0., 0.), Vector2D(1., 1.));
         REQUIRE(areCoincident(line, point1));
-        REQUIRE(!areCoincident(point2, line));
+        REQUIRE(!areCoincident(line, point2));
     }
 }

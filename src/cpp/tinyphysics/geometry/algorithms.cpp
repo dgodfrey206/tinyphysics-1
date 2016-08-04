@@ -17,6 +17,7 @@
  */
 
 #include "algorithms.h"
+#include "polygon2d.h"
 
 
 namespace tinyphysics
@@ -95,10 +96,11 @@ void Intersection2D::calculateParametersAtIntersection(const Vector2D& u,
 }
 
 
-bool Intersection2D::intersect(const Line2D& line1, const Line2D& line2)
+bool Intersection2D::intersect(const Line2D& line1, const Line2D& line2, 
+        bool forceReset)
 {
     //Reset results
-    reset();
+    if (forceReset) reset();
     
     //Check parallelism
     if (areParallel(line1, line2))
@@ -132,10 +134,131 @@ bool Intersection2D::intersect(const Line2D& line1, const Line2D& line2)
         mPoints.push_back(Point2D(x, y));
         return true;
     }
+}
+
+
+bool Intersection2D::intersect(const Ray2D& ray, const Segment2D& segment, 
+        bool forceReset)
+{
+    //Reset results
+    if (forceReset) reset();
     
+    //Check parallelism
+    if (areParallel(ray, segment))
+    {
+        if (areCoincident(ray, segment))
+        {
+            mPoints.push_back(segment.getFirstPoint());
+            mPoints.push_back(segment.getSecondPoint());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        Point2D a = ray.getFirstPoint();
+        Point2D b = ray.getSecondPoint();
+        double s = 0.;
+        double t = 0.;
+        calculateParametersAtIntersection(
+                ray.getDirectionVector(),
+                segment.getDirectionVector(),
+                a, segment.getFirstPoint(),
+                s, t);
+        if ((s >= 0.) && (t >= 0.) && (t <= 1.))
+        {
+            double x = a.getX() + s * (b.getX() - a.getX());
+            double y = a.getY() + s * (b.getY() - a.getY());
+            mPoints.push_back(Point2D(x, y));
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Intersection2D::intersect(const Segment2D& segment, const Ray2D& ray, 
+        bool forceReset)
+{
+    return intersect(ray, segment, forceReset);
+}
+
+bool Intersection2D::intersect(const Segment2D& segment1, 
+        const Segment2D& segment2, bool forceReset)
+{
+    //Reset results
+    if (forceReset) reset();
     
+    //Check parallelism
+    if (areParallel(segment1, segment2))
+    {
+        bool found = false;
+        if (areCoincident(segment2, segment1.getFirstPoint()))
+        {
+            mPoints.push_back(segment1.getFirstPoint());
+            found = true;
+        }
+        if (areCoincident(segment2, segment1.getSecondPoint()))
+        {
+            mPoints.push_back(segment1.getSecondPoint());
+            found = true;
+        }
+        if (areCoincident(segment1, segment2.getFirstPoint()))
+        {
+            mPoints.push_back(segment2.getFirstPoint());
+            found = true;
+        }
+        if (areCoincident(segment1, segment2.getSecondPoint()))
+        {
+            mPoints.push_back(segment2.getSecondPoint());
+            found = true;
+        }
+        if (found)
+            return true;
+        else
+            return false;
+    }
+    else
+    {
+        Point2D a = segment1.getFirstPoint();
+        Point2D b = segment1.getSecondPoint();
+        double s = 0.;
+        double t = 0.;
+        calculateParametersAtIntersection(
+                segment1.getDirectionVector(),
+                segment2.getDirectionVector(),
+                a, segment2.getFirstPoint(),
+                s, t);
+        if ((s >= 0.) && (s <= 1.) && (t >= 0.) && (t <= 1.))
+        {
+            double x = a.getX() + s * (b.getX() - a.getX());
+            double y = a.getY() + s * (b.getY() - a.getY());
+            mPoints.push_back(Point2D(x, y));
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Intersection2D::intersect(const Polygon2D& poly1, const Polygon2D& poly2, 
+        bool forceReset)
+{
+    //Reset
+    if (forceReset) reset();
     
-    
+    //Loop on all segments of polygon 1 and polygon 2
+    bool status = false;
+    for (size_t i = 0; i < poly1.countSegments(); ++i)
+    {
+        for (size_t j = 0; j < poly2.countSegments(); ++j)
+        {
+            status = intersect(poly1.getSegment(i), poly2.getSegment(j),
+                    false) || status;
+        }
+    }
+    return status;
 }
 
 }
