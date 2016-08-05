@@ -23,6 +23,34 @@ TEST_CASE("Segment2D", "[geometry]")
         REQUIRE(almostEquals(segment.getLength(), 5.));
     }
     
+    SECTION("coincidence")
+    {
+        Segment2D segment1(Point2D(0., 0.), Point2D(2., 0.));
+        Segment2D segment2(Point2D(0.5, 0.), Point2D(1.5, 0.));
+        REQUIRE(areCoincident(segment1, segment2));
+        REQUIRE(!areCoincident(segment2, segment1));
+    }
+
+    
+    SECTION("coincidence")
+    {
+        Segment2D segment(Point2D(0.5, 0.), Point2D(1.5, 0.));
+        Point2D point1(1., 0.);
+        REQUIRE(areCoincident(segment, point1));
+        Point2D point2(2., 0.);
+        REQUIRE(!areCoincident(segment, point2));
+    }
+    
+    
+    SECTION("intersection")
+    {
+        Segment2D segment1(Point2D(0., 0.), Point2D(2., 0.));
+        Segment2D segment2(Point2D(0.5, 0.), Point2D(1.5, 0.));
+        Intersection2D algo;
+        REQUIRE(algo.intersect(segment1, segment2));        
+        REQUIRE(algo.countIntersections() == 2);
+    }
+    
 //    SECTION("getUnitDirectionVector")
 //    {
 //        Line2D line(Point2D(0., 0.), Point2D(2., 2.));

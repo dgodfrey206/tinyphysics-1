@@ -127,6 +127,7 @@ void Demo1::draw()
             }
         }
     }
+    
     //Draw all rectangles
     for (const Rectangle2D& rect : mRectangles)
     {
@@ -141,28 +142,27 @@ void Demo1::draw()
             shape.setPoint(i, sf::Vector2f(point.getX(), point.getY()));
         }
         mWindow.draw(shape);
-        
-        //Check intersections with existing rectangles
-        Intersection2D algo;
-        for (size_t i = 0; i < mRectangles.size(); ++i)
+    }
+            
+    //Check intersections with existing rectangles
+    Intersection2D algo;
+    sf::CircleShape circle(8.);
+    circle.setOutlineColor(sf::Color::Green);
+    circle.setOutlineThickness(1.);
+    sf::Color color(0, 255, 0, 100.);
+    circle.setFillColor(color);
+    for (size_t i = 0; i < mRectangles.size(); ++i)
+    {
+        for (size_t j = i+1; j < mRectangles.size(); ++j)
         {
-            for (size_t j = 0; j < mRectangles.size(); ++j)
+            bool status = algo.intersect(mRectangles[i], mRectangles[j]);
+            if (status)
             {
-                bool status = algo.intersect(mRectangles[i], mRectangles[j]);
-                if (status)
+                for (size_t i = 0; i < algo.countIntersections(); ++i)
                 {
-                    for (size_t i = 0; i < algo.countIntersections(); ++i)
-                    {
-                        Point2D point = algo.getIntersectionPoint(i);
-                        sf::CircleShape circle(8.);
-                        circle.setOutlineColor(sf::Color::Green);
-                        circle.setOutlineThickness(1.);
-                        sf::Color color(0, 255, 0, 50.);
-                        //TODO fix alpha channel...
-                        circle.setFillColor(color);
-                        circle.setPosition(point.getX() - 8., point.getY() - 8.);
-                        mWindow.draw(circle);
-                    }
+                    Point2D point = algo.getIntersectionPoint(i);
+                    circle.setPosition(point.getX() - 8., point.getY() - 8.);
+                    mWindow.draw(circle);
                 }
             }
         }

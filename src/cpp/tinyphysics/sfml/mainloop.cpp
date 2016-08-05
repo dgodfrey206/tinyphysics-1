@@ -7,7 +7,7 @@ SfmlMainLoop::SfmlMainLoop():
         mWindow(sf::VideoMode(800, 600, 32), "Tiny Physics"),        
         mClock()
 {
-    //mWindow.setFramerateLimit(15);
+    mWindow.setFramerateLimit(60);
     mWindow.setVerticalSyncEnabled(true);
 }
 

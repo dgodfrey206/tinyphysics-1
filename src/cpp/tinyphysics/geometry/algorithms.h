@@ -26,6 +26,7 @@
 //STL headers
 #include <cmath>
 #include <vector>
+#include <iostream>
 
 //Tinyphysics
 #include "constants.h"
@@ -247,9 +248,11 @@ inline bool areCoincident(const Segment2D& segment,
     if (!areColinear(segment.getDirectionVector(), 
             Vector2D(p0, point)))
         return false;
-    double s = (point.getX() - p0.getX()) / (p1.getX() - p0.getY());
+    double s = (point.getX() - p0.getX()) / (p1.getX() - p0.getX());
     if ((s <= 1.) && (s >= 0.))
+    {
         return true;
+    }
     return false;
 }
 
