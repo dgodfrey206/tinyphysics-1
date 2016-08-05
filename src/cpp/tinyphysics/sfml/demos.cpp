@@ -7,7 +7,8 @@ Demo1::Demo1():
         mState(State::Idle),
         mRectangles(),
         mClickedPoint(),
-        mCurrentRectangle(Point2D(), Point2D())
+        mCurrentRectangle(Point2D(), Point2D()),
+        mView(sf::FloatRect(0, 0, 800, 600))
 { }
 
 void Demo1::handleInput(sf::Event& event)
@@ -46,7 +47,8 @@ void Demo1::handleInput(sf::Event& event)
         //Start drawing a rectangle
         if (event.type == event.MouseButtonPressed)
         {
-            auto position = sf::Mouse::getPosition(mWindow);
+            auto position = mWindow.mapPixelToCoords(
+                    sf::Mouse::getPosition(mWindow));
             std::cout << "Start drawing rectangle from: " << position.x << ", " << position.y << std::endl;
             mState = State::DrawingOnGoing;
             mClickedPoint = Point2D(position.x, position.y);
@@ -67,13 +69,15 @@ void Demo1::handleInput(sf::Event& event)
         //Update rectangle
         if (event.type == event.MouseMoved)
         {
-            auto position = sf::Mouse::getPosition(mWindow);
+            auto position = mWindow.mapPixelToCoords(
+                    sf::Mouse::getPosition(mWindow));
             mCurrentRectangle = Rectangle2D(mClickedPoint, Point2D(position.x, position.y));
         }
         //End rectangle
         else if (event.type == event.MouseButtonPressed)
         {
-            auto position = sf::Mouse::getPosition(mWindow);
+            auto position = mWindow.mapPixelToCoords(
+                    sf::Mouse::getPosition(mWindow));
             std::cout << "End drawing rectangle to: " << position.x << ", " << position.y << std::endl;
             mState = State::Drawing;
             mCurrentRectangle = Rectangle2D(mClickedPoint, Point2D(position.x, position.y));
@@ -86,10 +90,43 @@ void Demo1::handleInput(sf::Event& event)
             mState = State::Drawing;
         }
     }
+    
+    //Apply whatever the mode - modify view
+    if ((event.type == event.KeyPressed) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
+    {
+        mView.move(5, 0);
+    }
+    else if ((event.type == event.KeyPressed) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
+    {
+        mView.move(-5, 0);
+    }
+    if ((event.type == event.KeyPressed) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))
+    {
+        mView.move(0, -5);
+    }
+    else if ((event.type == event.KeyPressed) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)))
+    {
+        mView.move(0, 5);
+    }
+    else if ((event.type == event.KeyPressed) && (sf::Keyboard::isKeyPressed(sf::Keyboard::Home)))
+    {
+        mView.setSize(800, 600);
+    }
+    else if (event.type == event.MouseWheelMoved)
+    {
+        if (event.mouseWheel.delta > 0)
+            mView.zoom(1.01);
+        else if (event.mouseWheel.delta < 0)
+            mView.zoom(0.99);
+    }
 }
 
 void Demo1::draw()
-{
+{   
+    //Set view
+    mWindow.setView(mView);
+
+    //Update on-going drawing
     if (mState == State::DrawingOnGoing)
     {
         //Create SFML polygon

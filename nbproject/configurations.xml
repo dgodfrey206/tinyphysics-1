@@ -142,23 +142,7 @@
         </ccTool>
       </folder>
       <item path="src/cpp/main.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-          <incDir>
-            <pElem>src/cpp/tinyphysics/geometry</pElem>
-            <pElem>src/cpp/tinyphysics/sfml</pElem>
-            <pElem>/usr/include/SFML</pElem>
-            <pElem>/usr/include/SFML/System</pElem>
-            <pElem>/usr/include/SFML/Window</pElem>
-            <pElem>/usr/include/SFML/Graphics</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
+        <ccTool flags="1">
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/algorithms.cpp"

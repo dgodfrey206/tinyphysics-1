@@ -69,7 +69,7 @@ private:
     std::vector<Rectangle2D> mRectangles;
     Point2D mClickedPoint;
     Rectangle2D mCurrentRectangle;
- 
+    sf::View mView;
 };
 
 }
