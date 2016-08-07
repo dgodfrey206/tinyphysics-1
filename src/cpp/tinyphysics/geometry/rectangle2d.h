@@ -44,8 +44,21 @@ public:
      */
     Rectangle2D(const Point2D& bottomLeft, const Point2D& topRight);
     
-    //TODO more general constructor
-    
+    /**
+     * @brief Constructor.
+     * 
+     * Build a rectangle from three points.
+     * The third point is projected onto a perpendicular line to the line 
+     * defined by the first two points and passign by the second point.
+     * 
+     * @param bottomLeft bottom-left point
+     * @param bottomRight bottom-right point
+     * @param point point to be projected.
+     */
+    Rectangle2D(const Point2D& bottomLeft, 
+                const Point2D& bottomRight, 
+                const Point2D& point);
+
     /**
      * @brief Virtual copy constructor.
      */

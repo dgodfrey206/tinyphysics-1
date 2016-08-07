@@ -93,5 +93,21 @@ TEST_CASE("Line2D", "[geometry]")
         Line2D line3(Point2D(0., 0.), Point2D(0., 2.));
         REQUIRE(almostEquals(angleBetween(line1, line2), -PI / 2.));
         REQUIRE(almostEquals(angleBetween(line2, line3), PI / 4.));
-    }  
+    }
+    
+    SECTION("createPerpendicular")
+    {
+        Line2D line1(Point2D(0., 0.), Point2D(1., 0.));
+        Line2D line2 = line1.createPerpendicularLine(Point2D(0., 0.));
+        REQUIRE(areCoincident(line2.getFirstPoint(), Point2D(0., 0.)));
+        REQUIRE(areCoincident(line2.getSecondPoint(), Point2D(0., 1.)));
+    }
+    
+    SECTION("createParallel")
+    {
+        Line2D line1(Point2D(0., 0.), Point2D(1., 0.));
+        Line2D line2 = line1.createParallelLine(Point2D(1., 1.));
+        REQUIRE(areCoincident(line2.getFirstPoint(), Point2D(1., 1.)));
+        REQUIRE(areCoincident(line2.getSecondPoint(), Point2D(2., 1.)));
+    }
 }

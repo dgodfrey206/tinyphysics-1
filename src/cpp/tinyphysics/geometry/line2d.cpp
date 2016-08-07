@@ -24,4 +24,15 @@ Vector2D Line2D::getUnitDirectionVector() const
     return Vector2D(mA, mB).normalize();
 }
 
+Line2D Line2D::createPerpendicularLine(const Point2D& point) const
+{
+    Vector2D direction = getDirectionVector();
+    return Line2D(point, Vector2D(-direction.getY(), direction.getX()));
+}
+
+Line2D Line2D::createParallelLine(const Point2D& point) const
+{
+    return Line2D(point, getDirectionVector());
+}
+
 } // namespace tinyphysics

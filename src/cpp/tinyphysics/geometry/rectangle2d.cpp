@@ -13,6 +13,24 @@ Rectangle2D::Rectangle2D(const Point2D& bottomLeft, const Point2D& topRight)
     setPoint(3, Point2D(bottomLeft.getX(), topRight.getY()));
 }
 
+Rectangle2D::Rectangle2D(const Point2D& bottomLeft, const Point2D& bottomRight, 
+        const Point2D& point)
+        :Polygon2D(4)
+{ 
+    setPoint(0, bottomLeft);
+    setPoint(1, bottomRight);
+    Line2D perpendicular = Line2D(bottomLeft, bottomRight)
+            .createPerpendicularLine(bottomRight);
+    Point2D tmp(point);
+    projection(perpendicular, tmp);
+    setPoint(2, tmp);
+    perpendicular = Line2D(bottomLeft, bottomRight)
+            .createPerpendicularLine(bottomLeft);
+    tmp = point;
+    projection(perpendicular, tmp);
+    setPoint(3, tmp);
+}
+
 Shape2D* Rectangle2D::clone() const
 {
     return new Rectangle2D(*this);

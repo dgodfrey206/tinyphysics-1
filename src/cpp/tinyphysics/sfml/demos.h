@@ -42,6 +42,7 @@ class Demo1: public SfmlMainLoop
 public:
     
     enum State { Idle, Clicking, Drawing, DrawingOnGoing };
+    enum DrawingMode { Rectangle2Points, Rectangle3Points };
     
     /**
      * @brief Constructor.
@@ -67,9 +68,10 @@ private:
     //Attributes
     State mState;
     std::vector<Rectangle2D> mRectangles;
-    Point2D mClickedPoint;
+    std::vector<Point2D> mClickedPoints;
     Rectangle2D mCurrentRectangle;
     sf::View mView;
+    DrawingMode mDrawingMode;
 };
 
 }

@@ -17,6 +17,11 @@ TEST_CASE("rectangle2d", "[geometry]")
         Point2D point2(1., 1.);
         Rectangle2D rect1(point1, point2);
         REQUIRE(almostEquals(rect1.getArea(), 1.));
+        Point2D point3(2., 0.);
+        Point2D point4(1., 2.);
+        Rectangle2D rect2(point1, point3, point4);
+        REQUIRE(areCoincident(rect2.getPoint(2), Point2D(2., 2.)));
+        REQUIRE(areCoincident(rect2.getPoint(3), Point2D(0., 2.)));
     }
     
     SECTION("getPoint")

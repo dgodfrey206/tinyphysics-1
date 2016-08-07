@@ -109,7 +109,22 @@ public:
     inline Point2D getSecondPoint() const
     {
         return mB;
-    }    
+    }
+    
+    /**
+     * @brief Create a perpendicular line passing by given point.
+     * 
+     * @param point
+     */
+    Line2D createPerpendicularLine(const Point2D& point) const;
+    
+    /**
+     * @brief Create a parallel line passing by given point.
+     * 
+     * @param point
+     */
+    Line2D createParallelLine(const Point2D& point) const;
+    
 
 private:
     

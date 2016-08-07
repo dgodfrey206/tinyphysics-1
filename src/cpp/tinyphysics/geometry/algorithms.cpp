@@ -24,6 +24,27 @@ namespace tinyphysics
 {
 
 //==============================================================================
+// COINCIDENCE
+//==============================================================================
+
+bool areCoincident(const Polygon2D& poly, const Point2D& point, 
+        double tolerance)
+{
+    //Use cross couting algorithm
+    Ray2D ray(point, Vector2D(0., 1.));
+    int cross = 0.;
+    Intersection2D algo;
+    for (size_t i = 0; i < poly.countSegments(); ++i)
+    {
+        if (algo.intersect(ray, poly.getSegment(i)))
+            cross++;
+    }
+    if (cross % 2 == 0)
+        return false;
+    return true;
+}
+
+//==============================================================================
 // INTERSECTION2D
 //==============================================================================
 

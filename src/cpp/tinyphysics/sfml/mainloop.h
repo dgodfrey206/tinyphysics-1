@@ -23,6 +23,9 @@
 #ifndef TINYPHYSICS_SFML_MAINLOOP_H
 #define TINYPHYSICS_SFML_MAINLOOP_H
 
+//STL headers
+#include <iostream>
+
 //SFML headers
 #include <SFML/Graphics.hpp>
 

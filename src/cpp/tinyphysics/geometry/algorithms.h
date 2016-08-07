@@ -329,8 +329,18 @@ inline bool areCoincident(const Ray2D& ray1,
             areCoincident(ray1, ray2.getSecondPoint()));
 }
 
+/**
+ * @brief Stat whether a 2D point is inside a 2D polygon.
+ * 
+ * @param poly polygon
+ * @param point point
+ * @param tolerance tolerance
+ */
+bool areCoincident(const Polygon2D& poly,
+                   const Point2D& point,
+                   double tolerance=1.e-8);
+
 //TODO line segment
-//TODO polygon point
 //TODO polygon segment
 
 //==============================================================================
@@ -404,6 +414,28 @@ inline double angleBetween(const Line2D& line1, const Line2D& line2)
 //TODO line segment
 //TODO line ray
 //TODO segment ray
+
+//==============================================================================
+// PROJECTION
+//==============================================================================
+
+/**
+ * @brief Project a 2D point onto a 2D line.
+ * 
+ * @param line line to be projected to
+ * @param point point to be projected
+ */
+inline void projection(const Line2D& line, Point2D& point)
+{
+    Point2D p1 = line.getFirstPoint();
+    Point2D p2 = line.getSecondPoint();
+    double s = dotProduct(Vector2D(p1, point), line.getDirectionVector()) / 
+            dotProduct(line.getDirectionVector(), line.getDirectionVector());
+    for (size_t i = 0; i < 2; ++i)
+    {
+        point[i] = p1[i] + s * (p2[i] - p1[i]);
+    }
+}
 
 //==============================================================================
 // INTERSECTION
