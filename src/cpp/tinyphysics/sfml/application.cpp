@@ -3,8 +3,14 @@
 namespace tinyphysics
 {
 
-SfmlApplication::SfmlApplication():
+//==============================================================================
+// APPLICATION
+//==============================================================================
+
+Application::Application():
         mWindow(),
+        mState(nullptr),
+        mDefaultState(nullptr),
         mClock()
 {
     sf::ContextSettings settings;;
@@ -12,9 +18,16 @@ SfmlApplication::SfmlApplication():
     mWindow.create(sf::VideoMode(800, 600, 32), "Tiny Physics", sf::Style::Default, settings);
     mWindow.setFramerateLimit(60);
     mWindow.setVerticalSyncEnabled(true);
+    mDefaultState = new State(this);
+    setState(mDefaultState);
 }
 
-void SfmlApplication::run()
+Application::~Application()
+{
+    delete mDefaultState;
+}
+
+void Application::run()
 {
     while (mWindow.isOpen())
     {
@@ -26,24 +39,30 @@ void SfmlApplication::run()
         }
 
         //Update
-        update(mClock.restart().asSeconds());
+        double dtime = mClock.restart().asSeconds();
+        mState->update(dtime);
 
         //Draw
         mWindow.clear();
-        draw();
+        mState->draw(dtime);
         mWindow.display();
     }
 }
 
-void SfmlApplication::handleInput(sf::Event& event)
+void Application::handleInput(sf::Event& event)
 {
     if (event.type == sf::Event::Closed)
-        onApplicationClose();
+    {
+        mState->onApplicationClosed();
+    }
     else if (event.type == sf::Event::MouseMoved)
-        onMouseMove(mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow)));
+    {
+        mState->onMouseMoved(
+            mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow)));
+    }
     else if (event.type == sf::Event::MouseButtonPressed)
     {
-        onMouseClicked(event.mouseButton.button, 
+        mState->onMouseClicked(event.mouseButton.button, 
                 sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
     }
     else if (event.type == event.KeyPressed)
@@ -55,39 +74,85 @@ void SfmlApplication::handleInput(sf::Event& event)
             modifier |= KeyModifier::Shift;
         if (event.key.control)
             modifier |= KeyModifier::Ctrl;        
-        onKeyPressed(event.key.code, modifier);
+        mState->onKeyPressed(event.key.code, modifier);
     }
 }
 
-void SfmlApplication::draw()
-{ }
-
-void SfmlApplication::update(double dtime)
-{ }
-
-void SfmlApplication::onApplicationClose()
+sf::RenderWindow* Application::getRenderWindow()
 {
-    mWindow.close();
+    return &mWindow;
 }
 
-void SfmlApplication::onMouseMove(sf::Vector2f position)
-{ }
-
-void SfmlApplication::onKeyPressed(sf::Keyboard::Key key, uint modifiers)
+void Application::setState(State* state)
 {
-//    std::cout << "key = " << key << std::endl;
-//    std::cout << "modifiers = " << modifiers << std::endl;
-//    std::cout << (modifiers & KeyModifier::Alt) << std::endl;
-//    std::cout << (modifiers & KeyModifier::Ctrl) << std::endl;
-//    std::cout << (modifiers & KeyModifier::Shift) << std::endl;
+    mState = state;
 }
 
-void SfmlApplication::onMouseClicked(sf::Mouse::Button button, 
+//==============================================================================
+// STATE
+//==============================================================================
+
+State::State(Application* application): mApplication(application), 
+        mParent(nullptr)
+{ }
+
+State::State(Application* application, State* parent)
+: mApplication(application), mParent(parent)
+{ }
+
+void State::draw(double dtime)
+{ 
+    if (mParent)
+    {
+        mParent->draw(dtime);
+    }
+}
+
+void State::update(double dtime)
+{ 
+    if (mParent)
+    {
+        mParent->update(dtime);
+    }
+}
+
+void State::onApplicationClosed()
+{ 
+    if (mParent)
+    {
+        mParent->onApplicationClosed();
+    }
+    mApplication->getRenderWindow()->close();
+}
+
+void State::onMouseMoved(sf::Vector2f position)
+{ 
+    if (mParent)
+    {
+        mParent->onMouseMoved(position);
+    }
+}
+
+void State::onKeyPressed(sf::Keyboard::Key key, uint modifiers)
+{ 
+    if (mParent)
+    {
+        mParent->onKeyPressed(key, modifiers);
+    }
+}
+
+void State::onMouseClicked(sf::Mouse::Button button, 
         sf::Vector2f position)
+{ 
+    if (mParent)
+    {
+        mParent->onMouseClicked(button, position);
+    }
+}
+
+Application* State::getApplication()
 {
-//    std::cout << button << std::endl;
-//    std::cout << position.x << std::endl;
-//    std::cout << position.y << std::endl;
+    return mApplication;
 }
     
 }

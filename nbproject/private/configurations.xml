@@ -37,6 +37,10 @@
                   <df name="geometry">
                   </df>
                   <df name="sfml">
+                    <df name="demo1">
+                    </df>
+                    <df name="demo2">
+                    </df>
                   </df>
                 </df>
               </df>
@@ -93,10 +97,18 @@
               <in>vector2d.h</in>
             </df>
             <df name="sfml">
+              <df name="demo1">
+                <in>demo.cpp</in>
+                <in>demo.h</in>
+              </df>
+              <df name="demo2">
+                <in>demo.cpp</in>
+                <in>demo.h</in>
+              </df>
               <in>application.cpp</in>
               <in>application.h</in>
-              <in>demos.cpp</in>
-              <in>demos.h</in>
+              <in>color.cpp</in>
+              <in>color.h</in>
             </df>
           </df>
           <in>main.cpp</in>

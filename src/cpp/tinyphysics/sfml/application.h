@@ -29,73 +29,86 @@
 //SFML headers
 #include <SFML/Graphics.hpp>
 
+
 namespace tinyphysics
 {
 
-class SfmlApplication
+class Application;
+
+//==============================================================================
+// STATE
+//==============================================================================
+
+/**
+ * @brief Implements states that will manage interactions with user.
+ * Each application has only a single state activated but State uses decorator 
+ * design pattern so that it's possible to virtually have multiple states 
+ * activated.
+ */
+class State
 {
-    
 public:
-    
-    enum KeyModifier
-    { 
-        Alt = 1 << 0,
-        Ctrl = 1 << 1,
-        Shift = 1 << 2
-    };
     
     /**
      * @brief Constructor.
+     * 
+     * State object is attached to given application.
+     * 
+     * @param application attached application.
      */
-    
-    SfmlApplication();
+    State(Application* application);
     
     /**
-     * @brief Run the mainloop.
+     * @brief Constructor.
+     * 
+     * @param parent state to be decorated.
      */
-    void run();
-    
-protected:
+    State(Application* application, State* parent);
     
     /**
-     * @brief Handle input from user.
-     * 
-     * By default this method only handle close event.
-     * Clients may override this method to implement additional events.
-     * 
-     * @param event event been sent by user
+     * @brief Destructor.
      */
-    virtual void handleInput(sf::Event& event);
+    virtual ~State() = default;
     
     /**
-     * @brief Draw items in window.
+     * @brief Copy constructor.
      * 
-     * By default, this method draws nothing.
-     * Clients may override it to draw anything.
+     * @param other object to be copied from
      */
-    virtual void draw();
+    State(const State& other) = default;
     
     /**
-     * @brief Update system being drawn in the SFML window.
+     * @brief Move constructor.
      * 
-     * By default, this method does nothing.
-     * Clients may override it do to whatever necessary.
-     * 
-     * @param dtime elapsed time since previous call
+     * @param other object to be moved from
      */
-    virtual void update(double dtime);
+    State(State&& other) = default;
     
+    /**
+     * @brief Assignment operator
+     * 
+     * @param other object to be assigned from
+     */
+    State& operator=(const State& other) = default;
+    
+    /**
+     * @brief Move assignment operator
+     * 
+     * @param other object to be moved assigned from
+     */
+    State& operator=(State&& other) = default;
+
     /**
      * @brief Slot for application closure.
      */
-    virtual void onApplicationClose();
+    virtual void onApplicationClosed();
     
     /**
      * @brief Slot for mouse move event.
      * 
      * @param position mouse position
      */
-    virtual void onMouseMove(sf::Vector2f position);
+    virtual void onMouseMoved(sf::Vector2f position);
     
     /**
      * @brief Slot for keyboard pressed event.
@@ -114,14 +127,108 @@ protected:
     virtual void onMouseClicked(sf::Mouse::Button button, 
                                 sf::Vector2f position);
     
+    /**
+     * @brief Draw items in window.
+     * 
+     * By default, this method draws nothing.
+     * Clients may override it to draw anything.
+     * 
+     * @param dtime elapsed time since previous call
+     */
+    virtual void draw(double dtime);
+    
+    /**
+     * @brief Update system being drawn in the SFML window.
+     * 
+     * By default, this method does nothing.
+     * Clients may override it do to whatever necessary.
+     * 
+     * @param dtime elapsed time since previous call
+     */
+    virtual void update(double dtime);
+    
 protected:
     
-    //Attributes
-    sf::RenderWindow mWindow; //SFML window
+    /**
+     * @brief Return attached application.
+     */
+    Application* getApplication();
     
 private:
-    sf::Clock mClock;   //SFML clock
     
+    //Attributes
+    Application* mApplication;
+    State* mParent;
+};
+
+//==============================================================================
+// APPLICATION
+//==============================================================================
+
+class Application
+{
+    
+public:
+    
+    enum KeyModifier
+    { 
+        Alt = 1 << 0,
+        Ctrl = 1 << 1,
+        Shift = 1 << 2
+    };
+    
+    /**
+     * @brief Constructor.
+     */
+    
+    Application();
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Application();
+    
+    /**
+     * @brief Run the mainloop.
+     */
+    void run();
+    
+    /**
+     * @brief Get render window object.
+     */
+    sf::RenderWindow* getRenderWindow();
+
+    /**
+     * @brief Set state
+     * @param state state
+     */
+    void setState(State* state);
+        
+private:
+    
+    /**
+     * @brief Deactivate few methods
+     */
+    Application(const Application& other) = delete;
+    Application(Application&& other) = delete;
+    Application& operator=(const Application& other) = delete;
+    Application& operator=(Application&& other) = delete;
+    
+    /**
+     * @brief Handle input from user.
+     * 
+     * By default this method only handle close event.
+     * Clients may override this method to implement additional events.
+     * 
+     * @param event event been sent by user
+     */
+    void handleInput(sf::Event& event);
+
+    //Attributes
+    sf::RenderWindow mWindow; //SFML window
+    State* mState;            //Active state
+    State* mDefaultState;     //Default state
+    sf::Clock mClock;         //SFML clock
 };
 
 }

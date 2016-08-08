@@ -33,10 +33,18 @@
               <in>vector2d.h</in>
             </df>
             <df name="sfml">
+              <df name="demo1">
+                <in>demo.cpp</in>
+                <in>demo.h</in>
+              </df>
+              <df name="demo2">
+                <in>demo.cpp</in>
+                <in>demo.h</in>
+              </df>
               <in>application.cpp</in>
               <in>application.h</in>
-              <in>demos.cpp</in>
-              <in>demos.h</in>
+              <in>color.cpp</in>
+              <in>color.h</in>
             </df>
           </df>
           <in>main.cpp</in>
@@ -211,12 +219,16 @@
             ex="false"
             tool="1"
             flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/color.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
           <incDir>
-            <pElem>/usr/include/SFML/Window</pElem>
-            <pElem>/usr/include/SFML/System</pElem>
             <pElem>src/cpp/tinyphysics/sfml</pElem>
+            <pElem>/usr/include/SFML/System</pElem>
             <pElem>/usr/include/SFML</pElem>
+            <pElem>/usr/include/SFML/Window</pElem>
             <pElem>/usr/include/SFML/Graphics</pElem>
           </incDir>
           <preprocessorList>
@@ -229,7 +241,17 @@
           </preprocessorList>
         </ccTool>
       </item>
-      <item path="src/cpp/tinyphysics/sfml/demos.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/cpp/tinyphysics/sfml/demo1/demo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/demo2/demo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
         <ccTool flags="1">
         </ccTool>
       </item>
@@ -555,7 +577,31 @@
           </incDir>
         </ccTool>
       </item>
-      <item path="src/cpp/tinyphysics/sfml/demos.cpp" ex="false" tool="1" flavor2="8">
+      <item path="src/cpp/tinyphysics/sfml/color.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/color.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/demo1/demo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="0">
+          <incDir>
+            <pElem>src/cpp/tinyphysics/geometry</pElem>
+            <pElem>src/cpp/tinyphysics/sfml</pElem>
+            <pElem>/usr/include/SFML/System</pElem>
+            <pElem>/usr/include/SFML/Graphics</pElem>
+            <pElem>/usr/include/SFML</pElem>
+            <pElem>/usr/include/SFML/Window</pElem>
+            <pElem>src/cpp/tinyphysics/sfml/mainloop.h</pElem>
+            <pElem>src/cpp</pElem>
+          </incDir>
+        </ccTool>
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/demo2/demo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
         <ccTool flags="0">
           <incDir>
             <pElem>src/cpp/tinyphysics/geometry</pElem>
@@ -767,9 +813,29 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/cpp/tinyphysics/sfml/demos.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/cpp/tinyphysics/sfml/color.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/cpp/tinyphysics/sfml/demos.h" ex="false" tool="3" flavor2="0">
+      <item path="src/cpp/tinyphysics/sfml/color.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/demo1/demo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/demo1/demo.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/demo2/demo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/demo2/demo.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="tests/unitary/test.cpp" ex="false" tool="1" flavor2="8">
       </item>
