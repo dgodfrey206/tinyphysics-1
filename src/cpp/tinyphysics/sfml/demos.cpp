@@ -3,6 +3,10 @@
 namespace tinyphysics
 {
 
+//==============================================================================
+// DEMO1
+//==============================================================================
+
 Demo1::Demo1():
         mState(State::Idle),
         mRectangles(),
@@ -15,7 +19,7 @@ Demo1::Demo1():
 void Demo1::handleInput(sf::Event& event)
 {
     //Inherrit from basic handlers
-    SfmlMainLoop::handleInput(event);
+    SfmlApplication::handleInput(event);
     
     //Idle state
     if (mState == State::Idle)
@@ -29,13 +33,13 @@ void Demo1::handleInput(sf::Event& event)
         {
             mState = State::Clicking;
             std::cout << "Enterring CLICKING mode" << std::endl;
+            mClickedPoints.clear();
         }
     }
     
     //Clicking state
     else if (mState == State::Clicking)
     {
-        mClickedPoints.clear();
         if ((event.type == event.KeyPressed) && (sf::Keyboard::isKeyPressed(sf::Keyboard::D)))
         {
             mState = State::Drawing;
@@ -43,6 +47,7 @@ void Demo1::handleInput(sf::Event& event)
         }
         else if (event.type == event.MouseButtonPressed)
         {
+            mClickedPoints.clear();
             auto position = mWindow.mapPixelToCoords(
                     sf::Mouse::getPosition(mWindow));
             std::cout << "Clicking at: " << position.x << ", " << position.y << std::endl;
@@ -227,7 +232,6 @@ void Demo1::draw()
         for (const Rectangle2D& rect : mRectangles)
         {
             bool status = algo.intersect(mCurrentRectangle, rect);
-            //TODO fix: too many intersections found
             if (status)
             {
                 for (size_t i = 0; i < algo.countIntersections(); ++i)
@@ -248,12 +252,15 @@ void Demo1::draw()
     else if (mState == State::Clicking)
     {
         //Loop over all rectangles to check which ones are selected
-        for (const Rectangle2D& rect : mRectangles)
+        if (!mClickedPoints.empty())
         {
-            if (areCoincident(rect, mClickedPoints.front()))
-                selectedRectangles.push_back(true);
-            else
-                selectedRectangles.push_back(false);
+            for (const Rectangle2D& rect : mRectangles)
+            {
+                if (areCoincident(rect, mClickedPoints.front()))
+                    selectedRectangles.push_back(true);
+                else
+                    selectedRectangles.push_back(false);
+            }
         }
     }
     
@@ -314,5 +321,218 @@ void Demo1::draw()
         }
     }
 }
-    
+
+//==============================================================================
+// DEMO2
+//==============================================================================
+
+Demo2::Demo2(): 
+        mHslColor(convertRgbToHslColor(sf::Color::Red)),
+        mTexture(),
+        mUseTexture(false),
+        mUseShader(false)
+{
+    mTexture.loadFromFile("/files/cedric/personnel/informatique/projets/"
+                          "tinyphysics/data/textures/ball.png");
+    mTexture.setSmooth(true);
+}
+
+void Demo2::draw()
+{
+    sf::Color color = convertHslToRgbColor(mHslColor);
+    if (mUseTexture)
+    {
+        sf::Sprite sprite;
+        sprite.setTexture(mTexture);
+        sprite.setPosition(400 - 64, 300 - 64);
+        sprite.setColor(color);
+        if (mUseShader)
+        {
+            sf::Shader shader;
+            shader.loadFromFile("/files/cedric/personnel/informatique/projets/"
+                            "tinyphysics/data/shaders/passthrough-vertex.glsl",
+                            "/files/cedric/personnel/informatique/projets/"
+                            "tinyphysics/data/shaders/blur-fragment.glsl");
+            shader.setParameter("blur_radius", 0.02);
+            mWindow.draw(sprite, &shader);
+        }
+        else
+        {
+            mWindow.draw(sprite);
+        }
+    }
+    else
+    {
+        sf::CircleShape circle(64.);
+        circle.setPosition(400 - 64, 300 - 64);
+        circle.setFillColor(color);
+        mWindow.draw(circle);
+    }
+    std::stringstream ss;
+    ss << "Hue: " << mHslColor.x << "\tSaturation: " << mHslColor.y << "\tLuminance = " << mHslColor.z << std::endl;
+    sf::Font font;
+    font.loadFromFile("/usr/share/fonts/truetype/msttcorefonts/Arial.ttf");
+    sf::Text text(ss.str(), font);
+    text.setCharacterSize(16);
+    mWindow.draw(text);
+    ss << "Red: " << int(color.r) << "\tGreen: " << int(color.g) << "\tBlue = " << int(color.b) << std::endl;
+    text.setString(ss.str());
+    mWindow.draw(text);
+    ss << "Press T to toggle texture." << std::endl;
+    text.setString(ss.str());    
+    mWindow.draw(text);
+    ss << "Press S to toggle blur shader." << std::endl;
+    text.setString(ss.str());    
+    mWindow.draw(text);
+}
+
+void Demo2::onKeyPressed(sf::Keyboard::Key key, uint modifiers)
+{
+    if (key == sf::Keyboard::Right)
+    {
+        //Increase hue
+        mHslColor.x = mHslColor.x + 1.;
+        if (mHslColor.x >= 360.) mHslColor.x -= 360.;
+    }
+    else if (key == sf::Keyboard::Left)
+    {
+        //Decrease hue
+        mHslColor.x = mHslColor.x - 1.;
+        if (mHslColor.x < 0.) mHslColor.x = (360. + mHslColor.x);
+    }
+    else if (key == sf::Keyboard::Up)
+    {
+        //Increase saturation
+        mHslColor.y += 0.01;
+        mHslColor.y = std::min(1.f, mHslColor.y);
+    }
+    else if (key == sf::Keyboard::Down)
+    {
+        //Increase saturation
+        mHslColor.y -= 0.01;
+        mHslColor.y = std::max(0.f, mHslColor.y);
+    }
+    else if (key == sf::Keyboard::PageUp)
+    {
+        //Increase luminance
+        mHslColor.z += 0.01;
+        mHslColor.z = std::min(1.f, mHslColor.z);
+    }
+    else if (key == sf::Keyboard::PageDown)
+    {
+        //Increase luminance
+        mHslColor.z -= 0.01;
+        mHslColor.z = std::max(0.f, mHslColor.z);
+    }
+    else if (key == sf::Keyboard::T)
+    {
+        //Toggle texture
+        mUseTexture = !mUseTexture;
+    }
+    else if (key == sf::Keyboard::S)
+    {
+        //Toggle shader
+        mUseShader = !mUseShader;
+    }
+}
+
+sf::Vector3f Demo2::convertRgbToHslColor(sf::Color color) const
+{
+    sf::Vector3f hsl;
+    hsl.x = 0.;
+    hsl.y = 0.;
+    hsl.z = 0.;
+    double r = color.r / 255.;
+    double g = color.g / 255.;
+    double b = color.b / 255.;
+    double cmax = std::max({r, g, b});
+    double cmin = std::min({r, g, b});
+    double delta = cmax - cmin;
+    //Luminance
+    hsl.z = (cmax - cmin) / 2.;
+    //Saturation
+    if (delta <= 0.)
+    {
+        hsl.y = 0.;
+    }
+    else
+    {
+        hsl.y = delta / (1. - std::abs(2. * hsl.z - 1.));
+    }
+    //Hue
+    if (delta <= 0.)
+    {
+        hsl.x = 0.;
+    }
+    else if (cmax == r)
+    {
+        hsl.x = (g - b) / delta;
+        while (hsl.x >= 6.) hsl.x -= 6.;
+        hsl.x *= 60.;
+        //hsl.x = 60. * (((g - b) / delta) % 6);
+    }
+    else if (cmax == g)
+    {
+        hsl.x = 60. * ((b - r) / delta + 2.);
+    }
+    else if (cmax == b)
+    {
+        hsl.x = 60. * ((r - g) / delta + 4.);
+    }
+    return hsl;
+}
+
+sf::Color Demo2::convertHslToRgbColor(sf::Vector3f color) const
+{
+    double c = (1. - std::abs(2. * color.z - 1)) * color.y;
+    double x = (color.x / 60.);
+    while (x >= 2.) x -= 2.;
+    x = c * (1. - std::abs(x - 1));
+    //double x = c * (1. - std::abs((color.x / 60.) % 2 - 1.));
+    double m = color.z - c / 2;
+    double r, g, b;
+    if ((color.x >= 0.) && (color.x < 60.))
+    {
+        r = c;
+        g = x;
+        b = 0.;
+    }
+    else if ((color.x >= 60.) && (color.x < 120.))
+    {
+        r = x;
+        g = c;
+        b = 0.;
+    }
+    else if ((color.x >= 120.) && (color.x < 180.))
+    {
+        r = 0.;
+        g = c;
+        b = x;
+    }
+    else if ((color.x >= 180.) && (color.x < 240.))
+    {
+        r = 0.;
+        g = x;
+        b = c;
+    }
+    else if ((color.x >= 240.) && (color.x < 300.))
+    {
+        r = x;
+        g = 0.;
+        b = c;
+    }
+    else if ((color.x >= 300.) && (color.x < 360.))
+    {
+        r = c;
+        g = 0.;
+        b = x;
+    }
+    sf::Color rgb;
+    rgb.r = (r + m) * 255;
+    rgb.g = (g + m) * 255;
+    rgb.b = (b + m) * 255;
+    return rgb; 
+}
+
+
 }

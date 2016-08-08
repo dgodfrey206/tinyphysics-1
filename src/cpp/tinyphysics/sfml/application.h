@@ -20,8 +20,8 @@
  * @file
  */
 
-#ifndef TINYPHYSICS_SFML_MAINLOOP_H
-#define TINYPHYSICS_SFML_MAINLOOP_H
+#ifndef TINYPHYSICS_SFML_APPLICATION_H
+#define TINYPHYSICS_SFML_APPLICATION_H
 
 //STL headers
 #include <iostream>
@@ -32,16 +32,23 @@
 namespace tinyphysics
 {
 
-class SfmlMainLoop
+class SfmlApplication
 {
     
 public:
+    
+    enum KeyModifier
+    { 
+        Alt = 1 << 0,
+        Ctrl = 1 << 1,
+        Shift = 1 << 2
+    };
     
     /**
      * @brief Constructor.
      */
     
-    SfmlMainLoop();
+    SfmlApplication();
     
     /**
      * @brief Run the mainloop.
@@ -78,15 +85,46 @@ protected:
      */
     virtual void update(double dtime);
     
+    /**
+     * @brief Slot for application closure.
+     */
+    virtual void onApplicationClose();
+    
+    /**
+     * @brief Slot for mouse move event.
+     * 
+     * @param position mouse position
+     */
+    virtual void onMouseMove(sf::Vector2f position);
+    
+    /**
+     * @brief Slot for keyboard pressed event.
+     * 
+     * @param key key pressed
+     * @param modifiers activated (Alt, Ctrl, Shift or System)
+     */
+    virtual void onKeyPressed(sf::Keyboard::Key key, uint modifiers);
+    
+    /**
+     * @brief Slot for mouse button pressed event.
+     * 
+     * @param button pressed button
+     * @param position mouse position
+     */
+    virtual void onMouseClicked(sf::Mouse::Button button, 
+                                sf::Vector2f position);
+    
 protected:
     
     //Attributes
     sf::RenderWindow mWindow; //SFML window
+    
+private:
     sf::Clock mClock;   //SFML clock
     
 };
 
 }
 
-#endif /* TINYPHYSICS_SFML_MAINLOOP_H */
+#endif /* TINYPHYSICS_SFML_APPLICATION_H */
 

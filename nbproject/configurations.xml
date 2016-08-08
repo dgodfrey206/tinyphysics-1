@@ -2,6 +2,12 @@
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
+      <df name="data">
+        <df name="shaders">
+          <in>blur-fragment.glsl</in>
+          <in>passthrough-fragment.glsl</in>
+        </df>
+      </df>
       <df name="src">
         <df name="cpp">
           <df name="tinyphysics">
@@ -27,10 +33,10 @@
               <in>vector2d.h</in>
             </df>
             <df name="sfml">
+              <in>application.cpp</in>
+              <in>application.h</in>
               <in>demos.cpp</in>
               <in>demos.h</in>
-              <in>mainloop.cpp</in>
-              <in>mainloop.h</in>
             </df>
           </df>
           <in>main.cpp</in>
@@ -107,6 +113,21 @@
           </incDir>
         </ccTool>
       </folder>
+      <folder path="0/src/cpp/tinyphysics/geometry">
+        <ccTool>
+          <incDir>
+            <pElem>src/cpp/tinyphysics/geometry</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>__GNUC_STDC_INLINE__=1</Elem>
+            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
+            <Elem>__REGISTER_PREFIX__=</Elem>
+            <Elem>__STRICT_ANSI__=1</Elem>
+            <Elem>__USER_LABEL_PREFIX__=</Elem>
+            <Elem>__cplusplus=201103L</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
       <folder path="0/tests">
         <ccTool>
           <incDir>
@@ -134,7 +155,7 @@
             ex="false"
             tool="1"
             flavor2="8">
-        <ccTool flags="1">
+        <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/coord2d.cpp"
@@ -142,24 +163,13 @@
             tool="1"
             flavor2="8">
         <ccTool flags="0">
-          <incDir>
-            <pElem>src/cpp/tinyphysics/geometry</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/line2d.cpp"
             ex="false"
             tool="1"
             flavor2="8">
-        <ccTool flags="1">
+        <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/point2d.cpp"
@@ -167,38 +177,27 @@
             tool="1"
             flavor2="8">
         <ccTool flags="0">
-          <incDir>
-            <pElem>src/cpp/tinyphysics/geometry</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>__GNUC_STDC_INLINE__=1</Elem>
-            <Elem>__GXX_EXPERIMENTAL_CXX0X__=1</Elem>
-            <Elem>__REGISTER_PREFIX__=</Elem>
-            <Elem>__STRICT_ANSI__=1</Elem>
-            <Elem>__USER_LABEL_PREFIX__=</Elem>
-            <Elem>__cplusplus=201103L</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/polygon2d.cpp"
             ex="false"
             tool="1"
             flavor2="8">
-        <ccTool flags="1">
+        <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/rectangle2d.cpp"
             ex="false"
             tool="1"
             flavor2="8">
-        <ccTool flags="1">
+        <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/segment2d.cpp"
             ex="false"
             tool="1"
             flavor2="8">
-        <ccTool flags="1">
+        <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/geometry/vector2d.cpp"
@@ -206,8 +205,19 @@
             tool="1"
             flavor2="8">
         <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/application.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="0">
           <incDir>
-            <pElem>src/cpp/tinyphysics/geometry</pElem>
+            <pElem>/usr/include/SFML/Window</pElem>
+            <pElem>/usr/include/SFML/System</pElem>
+            <pElem>src/cpp/tinyphysics/sfml</pElem>
+            <pElem>/usr/include/SFML</pElem>
+            <pElem>/usr/include/SFML/Graphics</pElem>
           </incDir>
           <preprocessorList>
             <Elem>__GNUC_STDC_INLINE__=1</Elem>
@@ -220,13 +230,6 @@
         </ccTool>
       </item>
       <item path="src/cpp/tinyphysics/sfml/demos.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="1">
-        </ccTool>
-      </item>
-      <item path="src/cpp/tinyphysics/sfml/mainloop.cpp"
-            ex="false"
-            tool="1"
-            flavor2="8">
         <ccTool flags="1">
         </ccTool>
       </item>
@@ -340,6 +343,13 @@
           <preBuildFirst>true</preBuildFirst>
         </preBuild>
       </makefileType>
+      <item path="data/shaders/blur-fragment.glsl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/shaders/passthrough-fragment.glsl"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <folder path="0/src">
         <ccTool>
           <incDir>
@@ -531,6 +541,20 @@
           </preprocessorList>
         </ccTool>
       </item>
+      <item path="src/cpp/tinyphysics/sfml/application.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="0">
+          <incDir>
+            <pElem>/usr/include/SFML/Window</pElem>
+            <pElem>/usr/include/SFML/System</pElem>
+            <pElem>src/cpp/tinyphysics/sfml</pElem>
+            <pElem>/usr/include/SFML</pElem>
+            <pElem>/usr/include/SFML/Graphics</pElem>
+          </incDir>
+        </ccTool>
+      </item>
       <item path="src/cpp/tinyphysics/sfml/demos.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
           <incDir>
@@ -542,20 +566,6 @@
             <pElem>/usr/include/SFML/Window</pElem>
             <pElem>src/cpp/tinyphysics/sfml/mainloop.h</pElem>
             <pElem>src/cpp</pElem>
-          </incDir>
-        </ccTool>
-      </item>
-      <item path="src/cpp/tinyphysics/sfml/mainloop.cpp"
-            ex="false"
-            tool="1"
-            flavor2="8">
-        <ccTool flags="0">
-          <incDir>
-            <pElem>/usr/include/SFML/Window</pElem>
-            <pElem>/usr/include/SFML/System</pElem>
-            <pElem>src/cpp/tinyphysics/sfml</pElem>
-            <pElem>/usr/include/SFML</pElem>
-            <pElem>/usr/include/SFML/Graphics</pElem>
           </incDir>
         </ccTool>
       </item>
@@ -626,6 +636,13 @@
           <preBuildFirst>true</preBuildFirst>
         </preBuild>
       </makefileType>
+      <item path="data/shaders/blur-fragment.glsl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="data/shaders/passthrough-fragment.glsl"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <folder path="0/src">
         <ccTool>
           <incDir>
@@ -740,19 +757,19 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/cpp/tinyphysics/sfml/demos.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/cpp/tinyphysics/sfml/demos.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/cpp/tinyphysics/sfml/mainloop.cpp"
+      <item path="src/cpp/tinyphysics/sfml/application.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/cpp/tinyphysics/sfml/mainloop.h"
+      <item path="src/cpp/tinyphysics/sfml/application.h"
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/demos.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/cpp/tinyphysics/sfml/demos.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/unitary/test.cpp" ex="false" tool="1" flavor2="8">
       </item>

@@ -17,7 +17,9 @@ using namespace tinyphysics;
 int main(int argc, char* argv[])
 {
     std::cout << "TINY PHYSICS Engine" << std::endl;
-    Demo1 app;
+    Demo2 app;
     app.run();
+    //app.convertRgbToHslColor(sf::Color::Red);
+    //app.convertHslToRgbColor(sf::Vector3f(59., 1., 0.5));
     return 0;
 }

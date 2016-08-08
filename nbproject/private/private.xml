@@ -10,19 +10,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/rectangle2d.cpp</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/point2d.h</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/shape2d.h</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/polygon2d.cpp</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/tests/unitary/test_polygon2d.cpp</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/polygon2d.h</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/line2d.h</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/point2d.cpp</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/rectangle2d.h</file>
+            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/algorithms.cpp</file>
+            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/geometry/algorithms.h</file>
+            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/sfml/demos.h</file>
+            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/sfml/demos.cpp</file>
+            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/data/img/ball.png</file>
             <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/main.cpp</file>
+            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/sfml/application.cpp</file>
+            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/src/cpp/tinyphysics/sfml/application.h</file>
             <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/CMakeLists.txt</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/tests/CMakeLists.txt</file>
-            <file>file:/files/cedric/personnel/informatique/projets/tinyphysics/tests/unitary/test_rectangle2d.cpp</file>
         </group>
     </open-files>
 </project-private>

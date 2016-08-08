@@ -58,6 +58,16 @@
           </df>
         </df>
       </df>
+      <df name="data">
+        <df name="gimp">
+        </df>
+        <df name="shaders">
+          <in>blur-fragment.glsl</in>
+          <in>passthrough-fragment.glsl</in>
+        </df>
+        <df name="textures">
+        </df>
+      </df>
       <df name="src">
         <df name="cpp">
           <df name="tinyphysics">
@@ -83,10 +93,10 @@
               <in>vector2d.h</in>
             </df>
             <df name="sfml">
+              <in>application.cpp</in>
+              <in>application.h</in>
               <in>demos.cpp</in>
               <in>demos.h</in>
-              <in>mainloop.cpp</in>
-              <in>mainloop.h</in>
             </df>
           </df>
           <in>main.cpp</in>
@@ -135,8 +145,6 @@
         <gdb_interceptlist>
           <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
         </gdb_interceptlist>
-        <gdb_signals>
-        </gdb_signals>
         <gdb_options>
           <DebugOptions>
           </DebugOptions>
@@ -182,8 +190,6 @@
         <gdb_interceptlist>
           <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
         </gdb_interceptlist>
-        <gdb_signals>
-        </gdb_signals>
         <gdb_options>
           <DebugOptions>
           </DebugOptions>

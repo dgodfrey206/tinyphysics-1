@@ -26,9 +26,12 @@
 //STL headers
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <cmath>
+#include <sstream>
 
 //Tinyphysics headers
-#include "tinyphysics/sfml/mainloop.h"
+#include "tinyphysics/sfml/application.h"
 #include "tinyphysics/geometry/rectangle2d.h"
 #include "tinyphysics/geometry/point2d.h"
 #include "tinyphysics/geometry/algorithms.h"
@@ -36,7 +39,7 @@
 namespace tinyphysics
 {
 
-class Demo1: public SfmlMainLoop
+class Demo1: public SfmlApplication
 {
    
 public:
@@ -73,6 +76,40 @@ private:
     sf::View mView;
     DrawingMode mDrawingMode;
 };
+
+class Demo2: public SfmlApplication
+{
+   
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    Demo2();
+    
+    sf::Vector3f convertRgbToHslColor(sf::Color color) const;
+    
+    sf::Color convertHslToRgbColor(sf::Vector3f color) const;
+
+
+private:
+    
+    void onKeyPressed(sf::Keyboard::Key key, uint modifiers) override;
+    
+    /**
+     * @brief Draw rectangles.
+     */
+    void draw() override;
+        
+private:
+    
+    //Attributes
+    sf::Vector3f mHslColor;
+    sf::Texture mTexture;
+    bool mUseTexture;
+    bool mUseShader;
+};
+
 
 }
 
