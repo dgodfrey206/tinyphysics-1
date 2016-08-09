@@ -2,8 +2,7 @@
 #include <iostream>
 
 //Tinyphysics
-#include "tinyphysics/sfml/demo2/demo.h"
-#include "tinyphysics/geometry/rectangle2d.h"
+#include "tinyphysics/sfml/demo4/demo.h"
 
 using namespace tinyphysics;
 
@@ -17,7 +16,7 @@ using namespace tinyphysics;
 int main(int argc, char* argv[])
 {
     std::cout << "TINY PHYSICS Engine" << std::endl;
-    Demo3 app;
+    Demo4 app;
     app.run();
     return 0;
 }

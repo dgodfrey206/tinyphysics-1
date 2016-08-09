@@ -119,7 +119,79 @@ public:
             operator[](1) /= norm;
         }
         return *this;
-    }    
+    }
+    
+    /**
+     * @brief In-place multiplication by a scalar.
+     * 
+     * @param scalar scalar
+     * TODO test
+     */
+    inline const Vector2D& operator*=(double scalar)
+    {
+        operator[](0) *= scalar;
+        operator[](1) *= scalar;
+        return *this;
+    }
+    
+    /**
+     * @brief Multiplication by a scalar.
+     * 
+     * @param scalar scalar
+     * TODO test
+     */
+    inline const Vector2D operator*(double scalar)
+    {
+        return Vector2D(operator[](0) * scalar, operator[](1) * scalar);
+    }
+    
+    /**
+     * @brief In-place division by a scalar.
+     * 
+     * @param scalar scalar
+     * TODO test
+     */
+    inline Vector2D& operator/=(double scalar)
+    {
+        operator[](0) /= scalar;
+        operator[](1) /= scalar;
+        return *this;
+    }
+    
+    /**
+     * @brief Division by a scalar.
+     * 
+     * @param scalar scalar
+     * TODO test
+     */
+    inline const Vector2D operator/(double scalar)
+    {
+        return Vector2D(operator[](0) / scalar, operator[](1) / scalar);
+    }
+
+    
+    /**
+     * @brief In-place addition to another vector.
+     * 
+     * @param other vector to be added
+     * TODO test
+     */
+    inline const Vector2D& operator+=(const Vector2D& other)
+    {
+        operator[](0) += other[0];
+        operator[](1) += other[1];
+        return *this;
+    }
+    
+    /**
+     * @brief Unary - operator
+     * TODO test
+     */
+    inline const Vector2D& operator-() const
+    {
+        return Vector2D(-operator[](0), -operator[](0));
+    }
+    
 };
 
 }
