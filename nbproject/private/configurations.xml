@@ -43,6 +43,8 @@
                     </df>
                     <df name="demo3">
                     </df>
+                    <df name="demo4">
+                    </df>
                   </df>
                 </df>
               </df>
@@ -111,10 +113,16 @@
                 <in>demo.cpp</in>
                 <in>demo.h</in>
               </df>
+              <df name="demo4">
+                <in>demo.cpp</in>
+                <in>demo.h</in>
+              </df>
               <in>application.cpp</in>
               <in>application.h</in>
               <in>color.cpp</in>
               <in>color.h</in>
+              <in>fpscounter.cpp</in>
+              <in>fpscounter.h</in>
             </df>
           </df>
           <in>main.cpp</in>

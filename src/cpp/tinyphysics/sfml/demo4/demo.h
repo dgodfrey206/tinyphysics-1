@@ -18,7 +18,10 @@
 
 /** 
  * @file
- * @brief This demo is a first using particles and gravitational forces.
+ * @brief Shoot'em up !
+ * 
+ * Wonderfull sprites there:
+ * http://millionthvector.blogspot.fr/p/free-sprites.html
  */
 
 #ifndef TINYPHYSICS_SFML_DEMO3_DEMO_H
@@ -42,20 +45,11 @@
 namespace tinyphysics
 {
 
-struct Particle
-{    
-    Point2D position;      //Current position
-    Vector2D speed;        //Speed
-    double weight;         //Weight used for gravitational attraction
-    double color;          //Hue value
-    double luminance;      //Minimum distance to attractor
-};
-
-class Demo3State: public State
+class Demo4State: public State
 {
 public:
     
-    Demo3State(Application* application);
+    Demo4State(Application* application);
     void onKeyPressed(sf::Keyboard::Key key, uint modifiers) override;
     void onMouseClicked(sf::Mouse::Button button, sf::Vector2f position) override;
     void onMouseMoved(sf::Vector2f position) override;
@@ -64,28 +58,24 @@ public:
     
 private:
     //Attributes
-    sf::Texture mTexture;
-    std::vector<Particle> mParticles;
-    std::vector<Particle> mAttractors;
-    double mMaxSpeed;
-    double mMinSpeed;
-    double mRepulsionMagnitude;
-    Point2D mRepulsionSource;
-    sf::Shader mShader;
-    bool mDrawField;
+    sf::Texture mSpaceBackground;
+    sf::View mView;
+    sf::Vector2f mBackgroundTextRect;
+    sf::Sprite mBackgroundSprite;
+    std::vector<sf::Texture> mFighterTextures;
+    sf::Sprite mFighterSprite;
 };
 
-class Demo3: public Application
+class Demo4: public Application
 {
 public:
     
-    Demo3();
-    ~Demo3();
+    Demo4();
+    ~Demo4();
     
 private:
     State* mDefaultState;
     State* mFpsCounterState;
-    
 };
 
 

@@ -187,7 +187,7 @@ public:
      * @brief Unary - operator
      * TODO test
      */
-    inline const Vector2D& operator-() const
+    inline const Vector2D operator-() const
     {
         return Vector2D(-operator[](0), -operator[](0));
     }
