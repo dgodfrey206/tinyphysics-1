@@ -63,31 +63,40 @@ void Demo4State::onMouseMoved(sf::Vector2f position)
 
 void Demo4State::update(double dtime)
 {
-    //Move view forward
-    double viewSpeed = 50.;
-    sf::Vector2f viewOffset;
-    viewOffset.x = 0.;
-    viewOffset.y = -viewSpeed * dtime;
-    mView.move(viewOffset);
-    
-    //Update background sprite and fighter sprite
-    auto viewCenter = mView.getCenter();
-    sf::Vector2f topLeft = mView.getCenter();
-    topLeft.x -= mView.getSize().x / 2.;
-    topLeft.y -= mView.getSize().y / 2.;
-    mBackgroundSprite.setPosition(topLeft);
-    mBackgroundTextRect += viewOffset;
+    //Update background sprite
+    double gameSpeed = 50.; //move 50 pixel / second
+    sf::Vector2f gameOffset(0., -gameSpeed * dtime);
+    mBackgroundTextRect += gameOffset;
     mBackgroundSprite.setTextureRect(sf::IntRect(mBackgroundTextRect.x, 
             mBackgroundTextRect.y, 800, 600));
-    auto fighterPosition = mFighterSprite.getPosition();
-    fighterPosition += viewOffset;
-    mFighterSprite.setPosition(fighterPosition);
+    
+    //Update fighter position
+    double fighterSpeed = 600.;
+    sf::Vector2f mousePosition = getApplication()->getMousePosition();
+    sf::Vector2f currentPosition = mFighterSprite.getPosition();
+    sf::Vector2f center = currentPosition;
+    center.x += 95./2.;
+    center.y += 151./2.;
+    sf::Vector2f move = mousePosition - center;
+    double distance = std::sqrt(move.x * move.x + move.y * move.y);
+    if (distance >= 5.)
+    {
+        move.x = move.x / distance * fighterSpeed * dtime;
+        move.y = move.y / distance * fighterSpeed * dtime;
+        sf::Vector2f destination = currentPosition + move;
+        destination.x = std::max(0.f, destination.x);
+        destination.x = std::min(800.f-95.f, destination.x);
+        destination.y = std::max(0.f, destination.y);
+        destination.y = std::min(600.f-151.f, destination.y);
+        mFighterSprite.setPosition(destination);
+    }  
 }
 
 void Demo4State::draw(double dtime)
 {        
     //Get window
     auto window = getApplication()->getRenderWindow();
+    //window->setMouseCursorVisible(false);
     
     //Update view
     window->setView(mView);

@@ -199,10 +199,16 @@ public:
     sf::RenderWindow* getRenderWindow();
 
     /**
-     * @brief Set state
+     * @brief Set state.
+     * 
      * @param state state
      */
     void setState(State* state);
+    
+    /**
+     * @brief Get mouse position.
+     */
+    const sf::Vector2f getMousePosition() const;
         
 private:
     

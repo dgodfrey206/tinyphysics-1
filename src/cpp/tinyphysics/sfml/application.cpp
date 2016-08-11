@@ -88,6 +88,11 @@ void Application::setState(State* state)
     mState = state;
 }
 
+const sf::Vector2f Application::getMousePosition() const
+{
+    return mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+}
+
 //==============================================================================
 // STATE
 //==============================================================================

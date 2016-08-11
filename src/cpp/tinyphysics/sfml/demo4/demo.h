@@ -22,6 +22,9 @@
  * 
  * Wonderfull sprites there:
  * http://millionthvector.blogspot.fr/p/free-sprites.html
+ * 
+ * Textures:
+ * http://www.1001freefonts.com/horror-fonts.php
  */
 
 #ifndef TINYPHYSICS_SFML_DEMO3_DEMO_H
